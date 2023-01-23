@@ -1,0 +1,13 @@
+/* Geral */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Verdana;
+  color: #333;
+}
+
+body {
+  background-image: url("../img/montains.jpg");
+  background-size: cover;
+}

@@ -6,9 +6,9 @@ const editForm = document.querySelector("#edit-form");
 const editInput = document.querySelector("#edit-input");
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 
-//Funcao
+// Funcao
  const saveTodo = (text) => {
-  //template
+  // Template
 
   const todo = document.createElement('div');
   todo.classList.add('todo');
@@ -50,3 +50,19 @@ todoForm.addEventListener("submit", (e) => {
   }
 });
 
+// Indentificando Botoes
+document.addEventListener('click', (e) => {
+  const targetEl = e.target
+
+  if(targetEl.classList.contains('finish-todo')) {
+    console.log('done');
+  }
+
+  if(targetEl.classList.contains('edit-todo')) {
+    console.log('edit')
+  }
+
+  if(targetEl.classList.contains('remove-todo')) {
+    console.log('remove')
+  }
+});

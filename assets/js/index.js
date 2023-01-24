@@ -6,6 +6,8 @@ const editForm = document.querySelector("#edit-form");
 const editInput = document.querySelector("#edit-input");
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 
+let oldInputValue;
+
 // Funcao
  const saveTodo = (text) => {
   // Template
@@ -16,7 +18,7 @@ const cancelEditBtn = document.querySelector("#cancel-edit-btn");
   const todoTitle = document.createElement('h3');
   todoTitle.innerText = text;
   todo.appendChild(todoTitle); 
-  //console.log(todo); test
+  //console.log(todo);
 
   const doneBtn = document.createElement('button');
   doneBtn.classList.add('finish-todo');
@@ -39,30 +41,76 @@ const cancelEditBtn = document.querySelector("#cancel-edit-btn");
  };
 
 
+ const toggleForms = () => {
+  editForm.classList.toggle("hide");
+  todoForm.classList.toggle("hide");
+  todoList.classList.toggle("hide");
+ }
+
+ const updateTodo = (text) => { // editInputValue
+
+   const todos = document.querySelectorAll('.todo');
+   todos.forEach((todo) => {
+
+    let todoTitle = todo.querySelector('h3');
+
+    if(todoTitle.innerText === oldInputValue) { // encotrando o todo certo
+      todoTitle.innerText = text; // alterando o texto
+    }
+
+   });
+ }
+
 // Eventos
-todoForm.addEventListener("submit", (e) => {
+todoForm.addEventListener("submit", e => {
   e.preventDefault();
 
   const inputValue = todoInput.value;
   if (inputValue) {
     saveTodo(inputValue)
-  //console.log(inputValue); test
+  //console.log(inputValue);
   }
 });
 
 // Indentificando Botoes
-document.addEventListener('click', (e) => {
+document.addEventListener('click', e => {
   const targetEl = e.target
+  const parentEl = targetEl.closest('div');
+  let todoTitle;
+
+  if(parentEl && parentEl.querySelector('h3')) {
+    todoTitle = parentEl.querySelector('h3').innerText;
+  }
 
   if(targetEl.classList.contains('finish-todo')) {
-    console.log('done');
+    parentEl.classList.toggle('done');
+    //console.log('done');
   }
 
   if(targetEl.classList.contains('edit-todo')) {
-    console.log('edit')
+    toggleForms();
+    
+    editInput.value = todoTitle; // editando
+    oldInputValue = todoTitle;  // salvando
+    //console.log('edit')
   }
 
   if(targetEl.classList.contains('remove-todo')) {
-    console.log('remove')
+    parentEl.remove()
+    //console.log('remove')
   }
+});
+
+editForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const editInputValue = editInput.value
+
+
+  if(editInputValue) {
+    updateTodo(editInputValue)
+  }
+
+  toggleForms();
+
 });

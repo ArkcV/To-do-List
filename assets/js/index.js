@@ -63,12 +63,14 @@ let oldInputValue;
 
     let todoTitle = todo.querySelector('h3');
 
-    if(todoTitle.innerText === oldInputValue) { // encotrando o todo certo
+    if(todoTitle.innerText === oldInputValue) { // encontrando o todo certo
       todoTitle.innerText = text; // alterando o texto
+
     }
 
    });
  }
+
 
 // Eventos
 todoForm.addEventListener("submit", e => {
@@ -94,6 +96,8 @@ document.addEventListener('click', e => {
   if(targetEl.classList.contains('finish-todo')) {
     parentEl.classList.toggle('done');
     //console.log('done');
+
+  
   }
 
   if(targetEl.classList.contains('edit-todo')) {
@@ -107,6 +111,8 @@ document.addEventListener('click', e => {
   if(targetEl.classList.contains('remove-todo')) {
     parentEl.remove()
     //console.log('remove')
+     // Utilizando dados da localStorage
+     removeTodoLocalStorage(todoTitle);
   }
 });
 
@@ -149,5 +155,14 @@ const loadTodos = () => {
   });
 };
 
+
+const removeTodoLocalStorage = (todoText) => {
+  const todos = getLocalStorage();
+
+  const filterTodos = todos.filter((todo) => todo.text != todoText )
+
+  localStorage.setItem("todos", JSON.stringify(filterTodos));
+
+}
 
 loadTodos();

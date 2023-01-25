@@ -135,7 +135,10 @@ const getLocalStorage = () => {
 //enviando
 const saveTodoLocalStorage = (todo) => {
   const todos = getLocalStorage();
-  return todos;
+ 
+  todos.push(todo);
+
+  localStorage.setItem("todos", JSON.stringify(todos));
 };
 
 

@@ -114,3 +114,17 @@ editForm.addEventListener('submit', e => {
   toggleForms();
 
 });
+
+//LocalStorage
+
+//recenbendo
+const getLocalStorage = () => {
+ const todos = JSON.parse(localStorage.getItem("todos")) || [];
+ return todos;
+};
+
+//enviando
+const saveTodosLocalStorage = (todo) => {
+  const todos = getLocalStorage();
+  return todos;
+};

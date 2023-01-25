@@ -41,14 +41,13 @@ let oldInputValue;
   }
 
   if (save) {
-    saveTodoLocalStorage({ text, done: 0 });
+    saveTodosLocalStorage({ text, done: 0 });
   }
 
   todoList.appendChild(todo);
   todoInput.focus();
 
  };
-
 
  const toggleForms = () => {
   editForm.classList.toggle("hide");
@@ -97,7 +96,7 @@ document.addEventListener('click', e => {
     parentEl.classList.toggle('done');
     //console.log('done');
 
-  
+
   }
 
   if(targetEl.classList.contains('edit-todo')) {
@@ -112,7 +111,7 @@ document.addEventListener('click', e => {
     parentEl.remove()
     //console.log('remove')
      // Utilizando dados da localStorage
-     removeTodoLocalStorage(todoTitle);
+     removeTodosLocalStorage(todoTitle);
   }
 });
 
@@ -133,14 +132,14 @@ editForm.addEventListener('submit', e => {
 //LocalStorage
 
 //recenbendo
-const getLocalStorage = () => {
+const getTodosLocalStorage = () => {
  const todos = JSON.parse(localStorage.getItem("todos")) || [];
  return todos;
 };
 
 //enviando
-const saveTodoLocalStorage = (todo) => {
-  const todos = getLocalStorage();
+const saveTodosLocalStorage = (todo) => {
+  const todos = getTodosLocalStorage();
  
   todos.push(todo);
 
@@ -149,15 +148,15 @@ const saveTodoLocalStorage = (todo) => {
 
 
 const loadTodos = () => {
-  const todos = getLocalStorage();
+  const todos = getTodosLocalStorage();
   todos.forEach((todo) => {
     saveTodo(todo.text, todo.done, 0);
   });
 };
 
-
-const removeTodoLocalStorage = (todoText) => {
-  const todos = getLocalStorage();
+// enviado removidos
+const removeTodosLocalStorage = (todoText) => {
+  const todos = getTodosLocalStorage();
 
   const filterTodos = todos.filter((todo) => todo.text != todoText )
 

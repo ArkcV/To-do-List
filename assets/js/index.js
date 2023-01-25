@@ -9,7 +9,7 @@ const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 let oldInputValue;
 
 // Funcao
- const saveTodo = (text) => {
+ const saveTodo = (text, done = 0, save = 1) => {
   // Template
 
   const todo = document.createElement('div');
@@ -34,6 +34,15 @@ let oldInputValue;
   deleteBtn.classList.add('remove-todo');
   deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
   todo.appendChild(deleteBtn);
+
+   // Utilizando dados da localStorage
+   if (done) {
+    todo.classList.add("done");
+  }
+
+  if (save) {
+    saveTodoLocalStorage({ text, done: 0 });
+  }
 
   todoList.appendChild(todo);
   todoInput.focus();
@@ -124,7 +133,18 @@ const getLocalStorage = () => {
 };
 
 //enviando
-const saveTodosLocalStorage = (todo) => {
+const saveTodoLocalStorage = (todo) => {
   const todos = getLocalStorage();
   return todos;
 };
+
+
+const loadTodos = () => {
+  const todos = getLocalStorage();
+  todos.forEach((todo) => {
+    saveTodo(todo.text, todo.done, 0);
+  });
+};
+
+
+loadTodos();

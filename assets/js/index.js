@@ -8,10 +8,10 @@ const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 
 let oldInputValue;
 
-// Funcao
+// Funcaoz
  const saveTodo = (text, done = 0, save = 1) => {
-  // Template
 
+  // Template
   const todo = document.createElement('div');
   todo.classList.add('todo');
 
@@ -53,7 +53,7 @@ let oldInputValue;
   editForm.classList.toggle("hide");
   todoForm.classList.toggle("hide");
   todoList.classList.toggle("hide");
- }
+ };
 
  const updateTodo = (text) => { // editInputValue
 
@@ -64,11 +64,10 @@ let oldInputValue;
 
     if(todoTitle.innerText === oldInputValue) { // encontrando o todo certo
       todoTitle.innerText = text; // alterando o texto
-
     }
 
    });
- }
+ };
 
 
 // Eventos
@@ -95,9 +94,8 @@ document.addEventListener('click', e => {
   if(targetEl.classList.contains('finish-todo')) {
     parentEl.classList.toggle('done');
     //console.log('done');
-
-
-  }
+    updateTodoStatusLocalStorage(todoTitle);
+  };
 
   if(targetEl.classList.contains('edit-todo')) {
     toggleForms();
@@ -105,15 +103,17 @@ document.addEventListener('click', e => {
     editInput.value = todoTitle; // editando
     oldInputValue = todoTitle;  // salvando
     //console.log('edit')
-  }
+  };
 
   if(targetEl.classList.contains('remove-todo')) {
     parentEl.remove()
     //console.log('remove')
-     // Utilizando dados da localStorage
+
+    // Utilizando dados da localStorage
      removeTodosLocalStorage(todoTitle);
-  }
+  };
 });
+
 
 editForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -129,13 +129,16 @@ editForm.addEventListener('submit', e => {
 
 });
 
+
+
 //LocalStorage
 
-//recenbendo
+//recebendo
 const getTodosLocalStorage = () => {
  const todos = JSON.parse(localStorage.getItem("todos")) || [];
  return todos;
 };
+
 
 //enviando
 const saveTodosLocalStorage = (todo) => {
@@ -147,12 +150,14 @@ const saveTodosLocalStorage = (todo) => {
 };
 
 
+// carregando localstorage
 const loadTodos = () => {
   const todos = getTodosLocalStorage();
   todos.forEach((todo) => {
     saveTodo(todo.text, todo.done, 0);
   });
 };
+
 
 // enviado removidos
 const removeTodosLocalStorage = (todoText) => {
@@ -161,7 +166,29 @@ const removeTodosLocalStorage = (todoText) => {
   const filterTodos = todos.filter((todo) => todo.text != todoText )
 
   localStorage.setItem("todos", JSON.stringify(filterTodos));
+};
 
-}
+
+const updateTodoStatusLocalStorage = (todoText) => {
+  const todos = getTodosLocalStorage();
+
+  todos.map((todo) =>
+    todo.text === todoText ? (todo.done = !todo.done) : null
+  );
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+
+const updateTodoLocalStorage = (todoOldText, todoNewText) => {
+  const todos = getTodosLocalStorage();
+
+  todos.map((todo) =>
+    todo.text === todoOldText ? (todo.text = todoNewText) : null
+  );
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
 
 loadTodos();

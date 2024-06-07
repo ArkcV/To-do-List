@@ -1,6 +1,5 @@
 Website de um organizador de tarefas (to-do list) feito  JavaScript, Css, Html, FontAwesome.
 
-
 ![03](https://user-images.githubusercontent.com/104932386/215184648-26399897-3869-42eb-943a-cb443c87740c.png)
 
 ## Descrição

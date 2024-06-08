@@ -13,7 +13,7 @@ O projeto teve principalmente como objetivo aprender mais sobre JavaScript, Css,
  JavaScript
  Css
  Html
- FontAwesome
+ Font-Awesome
  
 ## Como testar
 https://arkcv.github.io/To-do-List/
